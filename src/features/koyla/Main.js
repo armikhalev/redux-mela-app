@@ -13,7 +13,7 @@ export class Main extends Component {
 
   // Initialize data
   componentDidMount() {
-    this.props.actions.getWords();
+    this.props.actions.getWords('a');
   }
 
   render() {

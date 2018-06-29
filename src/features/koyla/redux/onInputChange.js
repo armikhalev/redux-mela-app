@@ -15,10 +15,32 @@ export function onInputChange(curLetter) {
 
 export function reducer(state, action) {
   switch (action.type) {
-    case KOYLA_ON_INPUT_CHANGE:
-    {
+    case KOYLA_ON_INPUT_CHANGE: {
       const { curLetter } = action;
-      const { words } = state;
+      const { words, firstLetters } = state;
+
+      /**
+       * Check if needs more data from api by checking the first letter
+       * if letter is in the firstLetters array, then it words starting with this letter already in the store
+       * if not then add firstLetter to the store and call api for that letter
+       */ 
+      const isInFirstLetters = firstLetters
+        .filter(x =>
+          x === curLetter)
+          .length > 0
+      ;
+      const _newFirstLetters =
+        isInFirstLetters ?
+          firstLetters:
+          firstLetters.concat(curLetter)
+      ;
+      const newFirstLetters =
+        curLetter.length === 1 ?
+        _newFirstLetters:
+        firstLetters
+      ;
+
+      // Find words by current input
       const visibleCards = words
         .filter(w =>
           w.attributes
@@ -26,7 +48,8 @@ export function reducer(state, action) {
 
       return {
         ...state,
-        visibleCards
+        visibleCards,
+        firstLetters: newFirstLetters
       };
     }
 

@@ -9,7 +9,8 @@ const initialState = {
   getWordsPending: false,
   getWordsError: null,
   words: [],
-  visibleCards: []
+  visibleCards: [],
+  firstLetters: []
 };
 
 export default initialState;
