@@ -9,10 +9,12 @@
 import initialState from './initialState';
 import { reducer as getWordsReducer } from './getWords';
 import { reducer as onInputChangeReducer } from './onInputChange';
+import { reducer as onInputChangeAsyncReducer } from './onInputChangeAsync';
 
 const reducers = [
   getWordsReducer,
   onInputChangeReducer,
+  onInputChangeAsyncReducer,
 ];
 
 export default function reducer(state = initialState, action) {

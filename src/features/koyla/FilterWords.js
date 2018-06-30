@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from './redux/actions';
+import { onInputChangeAsync } from './redux/actions';
 
 export class FilterWords extends Component {
   static propTypes = {
@@ -11,11 +11,11 @@ export class FilterWords extends Component {
   };
 
   render() {
-    const { onInputChange } = this.props.actions;
+    const { onInputChangeAsync } = this.props.actions;
     return (
       <input className="koyla-filter-words" 
       placeholder='Type in a word'
-      onChange={ e => onInputChange(e.target.value)} />
+      onChange={ e => onInputChangeAsync(e.target.value)} />
     );
   }
 }
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ onInputChangeAsync }, dispatch)
   };
 }
 

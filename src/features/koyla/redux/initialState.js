@@ -10,7 +10,9 @@ const initialState = {
   getWordsError: null,
   words: [],
   visibleCards: [],
-  firstLetters: []
+  firstLetters: ['a'], // gets on initial load
+  onInputChangeAsyncPending: false,
+  onInputChangeAsyncError: null
 };
 
 export default initialState;
