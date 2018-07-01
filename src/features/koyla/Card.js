@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Card extends Component {
-  static propTypes = {
-
-  };
-
-  render() {
-    return (
-      <ul key={this.props.id} className="koyla-card">
-        <li>{this.props.card.word}</li>
-        <li>{this.props.card.la}</li>
-        <li>{this.props.card.comment}</li>
+const Card = props =>
+      <ul key={props.id} className="koyla-card">
+        <li>{props.card.word}</li>
+        <li>{props.card.la}</li>
+        <li>{props.card.comment}</li>
         <p>---------------------------</p>
-      </ul>
-    );
-  }
-}
+      </ul>;
+
+export default Card;

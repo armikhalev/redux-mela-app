@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {getWords, dismissGetWordsError} from './redux/actions';
+import { getWords, dismissGetWordsError, onInputChangeAsync } from './redux/actions';
 import { Card, FilterWords } from './';
 
 export class Main extends Component {
@@ -18,12 +18,12 @@ export class Main extends Component {
 
   render() {
     const { words, visibleCards } = this.props.koyla;
+    const { onInputChangeAsync } = this.props.actions;
 
     return (
       <div className="koyla-main">
-        <FilterWords />
+        <FilterWords inputHandler={onInputChangeAsync}/>
 
-        <div>Here are the words:</div>
         {words.length > 0 ? (
           <ul className="examples-reddit-list">
             {visibleCards.map(item => {
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ getWords, dismissGetWordsError }, dispatch)
+    actions: bindActionCreators({ getWords, dismissGetWordsError, onInputChangeAsync }, dispatch)
   };
 }
 
