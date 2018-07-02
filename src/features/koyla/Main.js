@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getWords, dismissGetWordsError, onInputChangeAsync } from './redux/actions';
+import { getWords, dismissGetWordsError, onInputChangeAsync, changeLang } from './redux/actions';
 import { Card, FilterWords } from './';
 
 export class Main extends Component {
@@ -17,13 +17,14 @@ export class Main extends Component {
   }
 
   render() {
-    const { words, visibleCards } = this.props.koyla;
-    const { onInputChangeAsync } = this.props.actions;
+    const { words, visibleCards, curLang } = this.props.koyla;
+    const { onInputChangeAsync, changeLang } = this.props.actions;
 
     return (
       <div className="koyla-main">
+      <h1>Translate from - {curLang}</h1>
         <FilterWords inputHandler={onInputChangeAsync}/>
-
+        <button onClick={changeLang}>Change to {curLang === 'English' ? 'Mela' : 'English'}</button>
         {words.length > 0 ? (
           <ul className="examples-reddit-list">
             {visibleCards.map(item => {
@@ -50,7 +51,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ getWords, dismissGetWordsError, onInputChangeAsync }, dispatch)
+    actions: bindActionCreators({ getWords, dismissGetWordsError, onInputChangeAsync, changeLang }, dispatch)
   };
 }
 

@@ -12,7 +12,8 @@ const initialState = {
   visibleCards: [],
   firstLetters: ['a'], // gets on initial load
   onInputChangeAsyncPending: false,
-  onInputChangeAsyncError: null
+  onInputChangeAsyncError: null,
+  curLang: 'English'
 };
 
 export default initialState;

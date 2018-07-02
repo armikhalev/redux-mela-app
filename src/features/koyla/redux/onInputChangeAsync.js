@@ -13,7 +13,7 @@ import {
 // If you prefer redux-saga, you can use rekit-plugin-redux-saga: https://github.com/supnate/rekit-plugin-redux-saga
 export function onInputChangeAsync(letter) {
   return (dispatch, getState) => { // optionally you can have getState as the second argument
-    const { koyla: { words, firstLetters } } = getState();
+    const { koyla: { words, firstLetters, curLang } } = getState();
 
     dispatch({
       type: KOYLA_ON_INPUT_CHANGE_ASYNC_BEGIN,
@@ -28,23 +28,24 @@ export function onInputChangeAsync(letter) {
       .filter(x =>
         x === letter)
       .length > 0
-      ;
+    ;
     const _newFirstLetters =
       isInFirstLetters ?
         firstLetters :
         firstLetters.concat(letter)
-      ;
+    ;
     const newFirstLetters =
       letter.length === 1 ?
         _newFirstLetters :
         firstLetters
-      ;
+    ;
 
     // Find words by current input
     const visibleCards = words
       .filter(w =>
         w.attributes
-          .word.includes(letter.toLowerCase()));
+          .word.includes(letter.toLowerCase()))
+    ;
 
     dispatch({
       type: KOYLA_ON_INPUT_CHANGE_ASYNC_FOUND_CARD,
@@ -65,7 +66,13 @@ export function onInputChangeAsync(letter) {
         // doRequest is a placeholder Promise. You should replace it with your own logic.
         // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
         // args.error here is only for test coverage purpose.
-        const doRequest = axios.get('http://melasi.pythonanywhere.com/koyla/words/?letter=' + letter);
+
+        const _curLang =
+          curLang === 'English'?
+            'words':
+            'las'
+        ;
+        const doRequest = axios.get('http://melasi.pythonanywhere.com/koyla/' + _curLang + '/?letter=' + letter);
 
         doRequest.then(
           (res) => {
